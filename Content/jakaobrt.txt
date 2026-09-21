@@ -1,0 +1,2 @@
+cd /Users/lovrohk/RiderProjects/TwoFingers
+dotnet tool run mgcb /@:Content/Content.mgcb

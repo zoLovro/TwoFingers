@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TwoFingers", "TwoFingers.csproj", "{279156B2-19B3-4469-B5A7-9E9471E4B958}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{279156B2-19B3-4469-B5A7-9E9471E4B958}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{279156B2-19B3-4469-B5A7-9E9471E4B958}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{279156B2-19B3-4469-B5A7-9E9471E4B958}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{279156B2-19B3-4469-B5A7-9E9471E4B958}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
