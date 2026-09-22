@@ -9,10 +9,9 @@ public class HoldCircle
     public int QueuePos { get; }
     public Rectangle Object { get; }
     
-    public HoldCircle(Vector2 position, int queuePos)
+    public HoldCircle(Vector2 position)
     {
         Position = position;
-        QueuePos = queuePos;
         Object = new Rectangle((int)position.X, (int)position.Y, 100, 50);
     }
     

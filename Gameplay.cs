@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -42,6 +44,8 @@ public class Gameplay : Game
 
     private Song _song;
 
+    private List<NoteData> _circleData = new List<NoteData>();
+
     public Gameplay()
     {
         _graphics = new GraphicsDeviceManager(this);
@@ -66,9 +70,9 @@ public class Gameplay : Game
         _hitLinePos = new Vector2(0, 360);
         _hitLineMoveDown = false;
 
-        _tapCircle = new TapCircle(new Vector2(200, 200), 1);
-        _swipeCircle = new SwipeCircle(new Vector2(500, 500), 1);
-        _holdCircle = new HoldCircle(new Vector2(700, 400), 1);
+        _tapCircle = new TapCircle(new Vector2(200, 200));
+        _swipeCircle = new SwipeCircle(new Vector2(500, 500));
+        _holdCircle = new HoldCircle(new Vector2(700, 400));
         _counter = 0;
         _song = Content.Load<Song>("Sawai Miku - Colorful Asterisk Remix");
         MediaPlayer.Play(_song);
@@ -184,5 +188,37 @@ public class Gameplay : Game
     private float DragDistanceX(Vector2 startMousePos, Vector2 currMousePos)
     {
         return Math.Abs(startMousePos.X - currMousePos.X);
+    }
+
+    private void MapParser(string path)
+    {
+        // Tap: 0, X, Y, TimeToAppear(ms)
+        // Swipe: 1, X, Y, TimeToAppear(ms), SwipeDir
+        // Hold: 2, X, Y, TimeToAppear(ms), HoldDuration
+        
+        string[] lines = File.ReadAllText(path).Split('\n');
+        foreach (string line in lines)
+        {
+            string[] lineContent = line.Split(',');
+            NoteData circle = new NoteData();
+            switch (lineContent[0])
+            {
+                case "0":
+                    circle.Type = NoteType.Tap;
+                    break;
+                case "1":
+                    circle.Type = NoteType.Swipe;
+                    circle.SwipeDir = int.Parse(lineContent[4]); // 1 - right, 0 - left
+                    break;
+                case "2":
+                    circle.Type = NoteType.Hold;
+                    circle.HoldDuration = int.Parse(lineContent[4]);
+                    break;
+            }
+            circle.Position = new Vector2(float.Parse(lineContent[1]), float.Parse(lineContent[2]));
+            circle.TimeToAppear = double.Parse(lineContent[3]);
+            
+            _circleData.Add(circle);
+        }
     }
 }
